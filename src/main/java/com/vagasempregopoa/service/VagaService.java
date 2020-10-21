@@ -1,36 +1,22 @@
 package com.vagasempregopoa.service;
 
 import com.vagasempregopoa.model.Vaga;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class VagaService {
+public interface VagaService {
 
-    @Autowired
-    Vaga vaga;
+    public Vaga criarVaga(Vaga vaga);
 
-    public void creationVaga(String titulo, String descricao, String requisitos, String salario, String cidade, String area){
+    public Vaga atualizarVaga(Vaga vaga);
 
-    }
+    public void deleteVaga(Integer id);
 
-    public void updateVaga(Integer id, String titulo, String descricao, String requisitos, String salario, String cidade, String area){
+    public List<Vaga> buscarVagas();
 
-    }
-
-    public void deleteVaga(Integer id){
-
-    }
-
-
-
-
-
-
-
-
-
-
+    public Vaga buscarVagaPorId(Integer id);
 
 
 }
