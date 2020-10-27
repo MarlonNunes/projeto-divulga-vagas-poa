@@ -5,9 +5,10 @@ import com.vagasempregopoa.service.VagaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class VagaController {
     //CRIANDO AS VAGAS
     @PostMapping(value = "/criar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Vaga criar(@RequestBody Vaga vaga){
+    public Vaga criar(@RequestBody @Valid Vaga vaga){
 
         return vagaService.criarVaga(vaga);
     }
@@ -30,7 +31,6 @@ public class VagaController {
 
     //BUSCANDO TODAS AS VAGAS
     @GetMapping(value = "/buscar")
-    @ResponseStatus(HttpStatus.OK)
     public List<Vaga> buscarTodas(){
         return vagaService.buscarVagas();
     }
@@ -38,15 +38,9 @@ public class VagaController {
 
     //BUSCANDO UMA VAGA ESPECÍFICA POR ID
     @GetMapping(value = "/buscar/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Vaga buscarPorId(@PathVariable Integer id){
-        try {
-            return vagaService.buscarVagaPorId(id);
+    public Vaga buscarPorId(@PathVariable Integer id) {
 
-        }catch (Exception e){
-            return vagaService.buscarVagas().get(0);
-        }
+        return vagaService.buscarVagaPorId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
 
 }
