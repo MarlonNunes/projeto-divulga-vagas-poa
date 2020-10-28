@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -26,7 +26,8 @@ public class Vaga {
     private String descricao;
 
     @Column(nullable = false)
-    @NotNull(message = "Não pode ser nulo")
+    @NotNull(message = "{vaga.requisito.nulo}")
+    @NotEmpty
     private String requisitos;
 
     @Column(nullable = false)
